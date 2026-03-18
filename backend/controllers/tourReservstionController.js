@@ -82,4 +82,22 @@ const getAllReservations = async (req, res) => {
   }
 };
 
-module.exports = { bookTour, getAllReservations };
+// Function to get a specific user's reservations
+const getMyReservations = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const reservations = await tourReserve.find({ userId: userId });
+    res.status(200).json({
+      status: "Success",
+      data: reservations,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      status: "Unsuccessful",
+      message: "Error fetching user reservations: " + err.message,
+    });
+  }
+};
+
+module.exports = { bookTour, getAllReservations, getMyReservations };

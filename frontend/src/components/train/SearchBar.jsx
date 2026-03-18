@@ -6,8 +6,20 @@ import { useNavigate } from "react-router-dom";
 const SearchBar = () => {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
+  const [stations, setStations] = useState({ from: [], to: [] });
 
   const { data } = useFetch(`/train/fetch/${from}/${to}`);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/train/fetch/stations")
+      .then(res => res.json())
+      .then(data => {
+        if(data && data.from && data.to) {
+          setStations(data);
+        }
+      })
+      .catch(err => console.log(err));
+  }, []);
 
   console.log(data);
 
@@ -39,13 +51,9 @@ const SearchBar = () => {
             }}
           ></input>
           <datalist id="from">
-            <option value="Satara" />
-            <option value="Nashik" />
-            <option value="Matheran" />
-            <option value="Bombay" />
-            <option value="Haveli" />
-            <option value="Pune" />
-            <option value="Saputara" />
+            {stations.from.map((station, i) => (
+                <option key={`from-${i}`} value={station} />
+            ))}
           </datalist>
         </div>
 
@@ -65,13 +73,9 @@ const SearchBar = () => {
             }}
           ></input>
           <datalist id="to">
-            <option value="Satara" />
-            <option value="Nashik" />
-            <option value="Matheran" />
-            <option value="Bombay" />
-            <option value="Haveli" />
-            <option value="Pune" />
-            <option value="Saputara" />
+            {stations.to.map((station, i) => (
+                <option key={`to-${i}`} value={station} />
+            ))}
           </datalist>
         </div>
 

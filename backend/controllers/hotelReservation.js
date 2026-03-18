@@ -7,6 +7,7 @@ const hotelReservation = require("../models/hotelReservationModel");
         checkInDate,
         checkOutDate,
         userName,
+        userId,
         totalPrice,
         totalDays
     }= req.body
@@ -17,6 +18,7 @@ const hotelReservation = require("../models/hotelReservationModel");
             checkInDate,
             checkOutDate,
             userName,
+            userId,
             totalPrice,
             totalDays
         });
@@ -39,10 +41,17 @@ const getAllReservation = async (req, res, next) => {
     }
   };
 
-
-
+const getUserReservations = async (req, res, next) => {
+    try {
+        const reservations = await hotelReservation.find({ userId: req.user });
+        res.status(200).json(reservations);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+};
 
 module.exports = {
     reservation,
-    getAllReservation
+    getAllReservation,
+    getUserReservations
   };

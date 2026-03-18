@@ -1,7 +1,7 @@
 import axios from 'axios';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FaLock } from 'react-icons/fa'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
@@ -13,7 +13,15 @@ const Payment = () => {
     const {data, pickupDate, returnDate, driver} = location.state ?? {};
 
     const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
 
+    useEffect(() => {
+        if (!user) {
+            navigate('/login');
+        }
+    }, [user, navigate]);
+
+    if (!user) return null; // Avoid rendering if redirecting
 
     const userId = user._id            //userId to be added from the session
     console.log("User Id: " + userId)

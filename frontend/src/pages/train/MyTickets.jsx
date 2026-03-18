@@ -1,23 +1,26 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/authContext";
 
 const MyTickets = ()=>{
-
+    const { user } = useContext(AuthContext);
     const [seatBookings, setSeatBooking] = useState([])
 
     useEffect(() => {
         const getAllSeatBooking = () => {
-            axios.get("/seatBookings/").then((res) => {
-                console.log(res.data)
-                setSeatBooking(res.data)
-            }).catch((err) => {
-                console.log(err.message)
-            })
+            if (user && user._id) {
+                axios.get(`/seatBookings/getSingleUser/${user._id}`).then((res) => {
+                    console.log(res.data)
+                    setSeatBooking(res.data)
+                }).catch((err) => {
+                    console.log(err.message)
+                })
+            }
         }
 
         getAllSeatBooking()
-    }, [])
+    }, [user])
 
     return (
         <div className="flex flex-col items-center py-10">

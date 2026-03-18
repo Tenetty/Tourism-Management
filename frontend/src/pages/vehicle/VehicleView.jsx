@@ -3,7 +3,7 @@ import axios from "axios";
 import Swal from 'sweetalert2'
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useNavigate,useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const VehicleBook = () => {
   const { state } = useLocation();
@@ -15,7 +15,7 @@ const VehicleBook = () => {
   const [data, setData] = useState([]);
   console.log("data to be send" + data)
 
- // const { id } = useParams();
+  // const { id } = useParams();
 
   useEffect(() => {
     axios
@@ -34,12 +34,12 @@ const VehicleBook = () => {
       .delete(`/vehicle/${state._id}`)
       .then(() => {
         Swal.fire({
-          
+
           icon: "success",
           title: "Your Vehicle Deleted Successfully",
           showConfirmButton: false,
           timer: 2000,
-          
+
         }); navigate('/vehicle')
       })
       .catch((err) => {
@@ -53,7 +53,7 @@ const VehicleBook = () => {
   };
 
   const editHandler = () => {
-    navigate(`/vehicle/edit/${state._id}`, {state : data});
+    navigate(`/vehicle/edit/${state._id}`, { state: data });
 
     // axios
     //   .patch(`/vehicle/${state._id}`)
@@ -69,7 +69,7 @@ const VehicleBook = () => {
     <div className="lg:p-24 ">
       <div className="flex justify-center items-center w-full flex-col lg:flex-row pt-12 lg:pt-0">
         <img
-          src={`http://localhost:5000/api/vehicle/images/${state.vehicleMainImg}`}
+          src={state.vehicleMainImg?.startsWith("http") ? state.vehicleMainImg : `http://localhost:5000/api/vehicle/images/${state.vehicleMainImg}`}
           alt="vehMainImg"
           className="w-[320px] md:w-[700px] lg:w-[600px] rounded-lg"
         />

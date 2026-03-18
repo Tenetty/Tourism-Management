@@ -58,8 +58,11 @@ export const vehicleColumns = [
           <img
             className="cellImg"
             src={
-              `vehicle/images/${params.row.vehicleMainImg}` ||
-              "https://i.ibb.co/MBtjqXQ/no-avatar.gif"
+              params.row.vehicleMainImg
+                ? params.row.vehicleMainImg.startsWith("http")
+                  ? params.row.vehicleMainImg
+                  : `vehicle/images/${params.row.vehicleMainImg}`
+                : "https://i.ibb.co/MBtjqXQ/no-avatar.gif"
             }
             alt="avatar"
           />
@@ -161,8 +164,11 @@ export const hotelColumns = [
           <img
             className="cellImg"
             src={
-              `hotels/images/${params.row.HotelImg}` ||
-              "https://i.ibb.co/MBtjqXQ/no-avatar.gif"
+              params.row.HotelImg
+                ? params.row.HotelImg.startsWith("http")
+                  ? params.row.HotelImg
+                  : `hotels/images/${params.row.HotelImg}`
+                : "https://i.ibb.co/MBtjqXQ/no-avatar.gif"
             }
             alt="avatar"
           />
@@ -313,7 +319,13 @@ export const trainColumns = [
         <div className="cellWithImg">
           <img
             className="cellImg"
-            src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Class_M10.jpg"
+            src={
+              params.row.trainMainImg
+                ? params.row.trainMainImg.startsWith("http")
+                  ? params.row.trainMainImg
+                  : `trains/images/${params.row.trainMainImg}`
+                : "https://upload.wikimedia.org/wikipedia/commons/b/b7/Class_M10.jpg"
+            }
             alt="avatar"
           />
         </div>

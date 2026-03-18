@@ -8,5 +8,6 @@ router.route("/update/:id").put(trainCtrl.updateTrain);  // edit train - admin
 router.route("/delete/:id").delete(trainCtrl.deleteTrain);   // delete train
 router.route("/fetch/:from/:to").get(trainCtrl.getTrainFromTo);     // sort according to from and to
 
+router.route("/fetch/stations").get(trainCtrl.getUniqueStations);
 
 module.exports = router;

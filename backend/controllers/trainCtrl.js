@@ -112,6 +112,16 @@ const getTrainFromTo =  async (req,res) =>{
         res.status(500).send(err.message);
     }
 }
+// fetch unique from and to stations
+const getUniqueStations = async (req, res) => {
+    try {
+        const fromStations = await Train.distinct("from");
+        const toStations = await Train.distinct("to");
+        res.status(200).json({ from: fromStations, to: toStations });
+    } catch(err) {
+        res.status(500).json({ message: err.message });
+    }
+}
 
 module.exports= {
     addTrain,
@@ -119,5 +129,6 @@ module.exports= {
     getSingleTrain,
     deleteTrain,
     updateTrain,
-    getTrainFromTo
+    getTrainFromTo,
+    getUniqueStations
 }

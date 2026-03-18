@@ -67,7 +67,11 @@ import ContactUs from "../pages/ContactUs";
 import HotelBook from "../pages/hotel/HotelBook";
 import ResetPassword from "../pages/ResetPassword";
 import Tourreservations from "../pages/Tourreservations";
+import MyTourReservations from "../pages/MyTourReservations";
+import MyHotelReservations from "../pages/hotel/MyHotelReservations";
+import AllReservations from "../pages/AllReservations";
 import Vehiclereservation from "../pages/Vehiclereservation";
+import MyVehicleReservations from "../pages/vehicle/MyVehicleReservations";
 import ReviewTickets from "../pages/train/ReviewTickets";
 import ReviewPanel from "../pages/train/ReviewPanel";
 import MyTickets from "../pages/train/MyTickets";
@@ -142,6 +146,30 @@ const RouteTour = () => {
         }
       />
       <Route
+        path="/my-tour-reservations"
+        element={
+          <ProtectedRoute>
+            <MyTourReservations />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/my-hotel-reservations"
+        element={
+          <ProtectedRoute>
+            <MyHotelReservations />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/all-reservations"
+        element={
+          <ProtectedRoute>
+            <AllReservations />
+          </ProtectedRoute>
+        }
+      />
+      <Route
         path="/train"
         element={
           <ProtectedRoute>
@@ -162,6 +190,14 @@ const RouteTour = () => {
         element={
           <ProtectedRoute>
             <Vehiclereservation columns={vehicleReservationColumns} />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/my-vehicle-reservations"
+        element={
+          <ProtectedRoute>
+            <MyVehicleReservations />
           </ProtectedRoute>
         }
       />

@@ -12,11 +12,7 @@ router
   .post(tourController.createTour)
   .get(tourController.getAllTours);
 
-router
-  .route("/:id")
-  .get(tourController.getTour)
-  .patch(tourController.updateTour)
-  .delete(tourController.deleteTour);
+// Moved /:id to the bottom to prevent it from matching /customform and /tourReservations
 
 //custom form
 router.route("/customform").post(tourCustomForm.createForm);
@@ -27,5 +23,15 @@ router
   .route("/tourReservations")
   .get(tourReservation.getAllReservations)
   .post(tourReservation.bookTour);
+
+router
+  .route("/tourReservations/user/:userId")
+  .get(tourReservation.getMyReservations);
+
+router
+  .route("/:id")
+  .get(tourController.getTour)
+  .patch(tourController.updateTour)
+  .delete(tourController.deleteTour);
 
 module.exports = router;

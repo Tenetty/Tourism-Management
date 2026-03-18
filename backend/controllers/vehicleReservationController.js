@@ -34,7 +34,7 @@ exports.addReservation = async (req, res) => {
       pickupDate: req.body.pickupDate,
       returnDate: req.body.returnDate,
       price: amount,
-      needDriver : req.body.needDriver,
+      needDriver : req.body.needDriver || false,
       vehicleOwnerId: vehicle.userId,
       transactionId: uuidv4(),
     });

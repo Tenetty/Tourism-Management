@@ -88,9 +88,14 @@ const Profile = () => {
             )}
             {user.type === "traveler" && (
               <>
-                <Link to="/my-reservations">
+                <Link to="/train/MyTickets">
                   <button className="bg-blue-500 py-3 px-6 rounded-lg text-white font-bold hover:bg-blue-600 transition duration-200 ease-in-out">
-                    My Reservations
+                    My Train Tickets
+                  </button>
+                </Link>
+                <Link to="/all-reservations">
+                  <button className="bg-blue-500 py-3 px-6 rounded-lg text-white font-bold hover:bg-blue-600 transition duration-200 ease-in-out">
+                    All My Reservations
                   </button>
                 </Link>
               </>

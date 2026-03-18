@@ -5,6 +5,11 @@ const hotelReservationModel=new mongoose.Schema({
         type:String,
         required:false
     },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
     checkInDate:{
         type:String,
         required:true
@@ -19,11 +24,11 @@ const hotelReservationModel=new mongoose.Schema({
     },
     totalPrice:{
         type:String,
-        reqiured:true
+        required:true
     },
     totalDays:{
         type:Number,
-        reqiured:true
+        required:true
     }
     
     
