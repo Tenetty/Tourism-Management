@@ -1,7 +1,16 @@
 const mongoose=require('mongoose')
 
 const hotelReservationModel=new mongoose.Schema({
+    hotelId:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Hotel',
+        required: false
+    },
     hotelName:{
+        type:String,
+        required:false
+    },
+    roomType:{
         type:String,
         required:false
     },

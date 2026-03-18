@@ -13,7 +13,7 @@ const TrainHero = ()=>{
             <h1 className='text-3xl md:text-5xl font-extrabold uppercase text-[#DEEFFF] py-4'>
                 Travely
             </h1>
-            <p className='text-sm md:text-1xl  lg:max-w-[580px] md:max-w-[900px] text-justify'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sit amet dui pulvinar, volutpat turpis vel, elementum odio. Vestibulum ac fringilla enim, ac aliquet ligula. Nunc aliquam sodales blandit. Praesent eu ligula id nisl suscipit iaculis vel sed urna. Donec id nulla luctus, interdum dolor quis, cursus ligula.  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sit amet dui pulvinar, volutpat turpis vel, elementum odio.</p>
+            <p className='text-sm md:text-1xl  lg:max-w-[580px] md:max-w-[900px] text-justify'>Experience the most scenic rail journeys through the countryside. From mist-covered hill country routes to coastal stretches with stunning ocean views, our platform makes it easy to browse schedules, compare classes, and secure your seats — all in just a few clicks.</p>
         </div>        
     </div> 
     )

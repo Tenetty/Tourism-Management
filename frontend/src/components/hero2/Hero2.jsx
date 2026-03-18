@@ -43,8 +43,8 @@ const Hero2 = () => {
               Rural Tourism
             </h1>
             <p className="mt-4">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Escape the city and immerse yourself in the charm of rural villages,
+              breathtaking landscapes, and rich cultural heritage across the countryside.
             </p>
             <button onClick={() => navigate("/tours/home")} className="bg-black text-white px-2 py-3 rounded-lg hover:bg-white hover:border hover:text-black hover:font-bold mt-4">
               Get started

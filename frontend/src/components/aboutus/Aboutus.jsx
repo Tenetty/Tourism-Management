@@ -141,25 +141,25 @@ const Aboutus = () => {
                   isVisible ? "opacity-100" : "opacity-0"
                 }`}
               >
-                Lorem ipsum dolor sit amet
+                Discover the Beauty of Rural Tourism
               </h2>
               <p
                 className={`text-body-color mb-8 text-base transition-opacity duration-700 ${
                   isVisible ? "opacity-100" : "opacity-0"
                 }`}
               >
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse
-                nulla enim aperiam culpa cupiditate quas animi ducimus
-                blanditiis! Dolorum, perspiciatis.
+                We connect travelers with authentic rural experiences across the countryside.
+                From lush paddy fields and misty hill country to vibrant village
+                festivals, every journey is crafted to immerse you in local culture.
               </p>
               <p
                 className={`text-body-color mb-12 text-base transition-opacity duration-700 ${
                   isVisible ? "opacity-100" : "opacity-0"
                 }`}
               >
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse
-                nulla enim aperiam culpa cupiditate quas animi ducimus
-                blanditiis! Dolorum, perspiciatis.
+                Our platform brings together trusted local hotels, scenic tour
+                packages, reliable transport, and unique cultural activities — all
+                in one place, so you can explore the countryside with confidence.
               </p>
             </div>
           </div>

@@ -244,6 +244,16 @@ const getAllHotel = async (req, res, next) => {
   }
 };
 
+// Get hotels owned by the logged-in hotel manager (includes unapproved)
+const getMyHotels = async (req, res, next) => {
+  try {
+    const hotels = await Hotel.find({ owner: req.user._id });
+    res.status(200).json(hotels);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
 //count by city
 const countByCity = async (req, res, next) => {
   const cities = req.query.cities.split(",");
@@ -312,6 +322,16 @@ const getHotelRooms = async (req, res, next) => {
   }
 };
 
+// Admin: get all hotels (including unapproved)
+const getAllHotelsAdmin = async (req, res, next) => {
+  try {
+    const hotels = await Hotel.find();
+    res.status(200).json(hotels);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
 // Admin approve hotel
 const approveHotel = async (req, res, next) => {
   try {
@@ -326,15 +346,32 @@ const approveHotel = async (req, res, next) => {
   }
 };
 
+// Admin reject/unapprove hotel
+const rejectHotel = async (req, res, next) => {
+  try {
+    const updatedHotel = await Hotel.findByIdAndUpdate(
+      req.params.id,
+      { isApproved: false },
+      { new: true }
+    );
+    res.status(200).json(updatedHotel);
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   createHotel,
   updateHotel,
   deleteHotel,
   getHotel,
   getAllHotel,
+  getMyHotels,
+  getAllHotelsAdmin,
   countByCity,
   countByType,
   getHotelbyCity,
   getHotelRooms,
   approveHotel,
+  rejectHotel,
 };

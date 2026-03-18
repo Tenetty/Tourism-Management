@@ -103,6 +103,26 @@ const Navbar = () => {
                     )}
                   </Menu.Item>
                 ))}
+                {user && (
+                  <>
+                    <hr className="my-1" />
+                    <Menu.Item>
+                      {({ active }) => (
+                        <Link
+                          className={classNames(
+                            active
+                              ? "bg-gray-100 text-gray-900"
+                              : "text-gray-700",
+                            "block px-4 py-2 text-sm font-semibold text-[#41A4FF]"
+                          )}
+                          to="/all-reservations"
+                        >
+                          My Bookings
+                        </Link>
+                      )}
+                    </Menu.Item>
+                  </>
+                )}
               </div>
             </Menu.Items>
           </Transition>
@@ -151,19 +171,54 @@ const Navbar = () => {
                         </Link>
                       )}
                     </Menu.Item>
+                    <Menu.Item>
+                      {({ active }) => (
+                        <Link
+                          className={classNames(
+                            active
+                              ? "bg-gray-100 text-gray-900"
+                              : "text-gray-700",
+                            "block px-4 py-2 text-sm"
+                          )}
+                          to="/all-reservations"
+                        >
+                          My Bookings
+                        </Link>
+                      )}
+                    </Menu.Item>
 
                     {user.role === "Hotel Manager" && (
                       <Menu.Item>
                         {({ active }) => (
-                          <Link
-                            className={classNames(
-                              active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                              "block px-4 py-2 text-sm font-semibold text-[#41A4FF]"
-                            )}
-                            to="/hotels/new"
-                          >
-                            Add Hotel
-                          </Link>
+                          <>
+                            <Link
+                              className={classNames(
+                                active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                                "block px-4 py-2 text-sm font-semibold text-[#41A4FF]"
+                              )}
+                              to="/hotels/list"
+                            >
+                              Hotel Dashboard
+                            </Link>
+                            <Link
+                              className={classNames(
+                                active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                                "block px-4 py-2 text-sm font-semibold text-[#41A4FF]"
+                              )}
+                              to="/hotels/bookings"
+                            >
+                              Hotel Bookings
+                            </Link>
+                            <Link
+                              className={classNames(
+                                active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                                "block px-4 py-2 text-sm font-semibold text-[#41A4FF]"
+                              )}
+                              to="/hotels/new"
+                            >
+                              Add Hotel
+                            </Link>
+                          </>
                         )}
                       </Menu.Item>
                     )}
@@ -299,6 +354,26 @@ const Navbar = () => {
                         )}
                       </Menu.Item>
                     ))}
+                    {user && (
+                      <>
+                        <hr className="my-1" />
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link
+                              className={classNames(
+                                active
+                                  ? "bg-gray-100 text-gray-900"
+                                  : "text-gray-700",
+                                "block px-4 py-2 text-sm font-semibold text-[#41A4FF]"
+                              )}
+                              to="/all-reservations"
+                            >
+                              My Bookings
+                            </Link>
+                          )}
+                        </Menu.Item>
+                      </>
+                    )}
                   </div>
                 </Menu.Items>
               </Transition>
@@ -355,15 +430,35 @@ const Navbar = () => {
                     {user.role === "Hotel Manager" && (
                       <Menu.Item>
                         {({ active }) => (
-                          <Link
-                            className={classNames(
-                              active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                              "block px-4 py-2 text-sm font-semibold text-[#41A4FF]"
-                            )}
-                            to="/hotels/new"
-                          >
-                            Add Hotel
-                          </Link>
+                          <>
+                            <Link
+                              className={classNames(
+                                active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                                "block px-4 py-2 text-sm font-semibold text-[#41A4FF]"
+                              )}
+                              to="/hotels/list"
+                            >
+                              Hotel Dashboard
+                            </Link>
+                            <Link
+                              className={classNames(
+                                active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                                "block px-4 py-2 text-sm font-semibold text-[#41A4FF]"
+                              )}
+                              to="/hotels/bookings"
+                            >
+                              Hotel Bookings
+                            </Link>
+                            <Link
+                              className={classNames(
+                                active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                                "block px-4 py-2 text-sm font-semibold text-[#41A4FF]"
+                              )}
+                              to="/hotels/new"
+                            >
+                              Add Hotel
+                            </Link>
+                          </>
                         )}
                       </Menu.Item>
                     )}

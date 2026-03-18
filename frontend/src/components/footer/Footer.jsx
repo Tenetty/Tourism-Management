@@ -14,9 +14,9 @@ const Footer = () => {
         Rural Tourism
         </h3>
         <p className="py-4">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. A odio non
-          nemo veniam, natus accusantium. Praesentium, doloribus mollitia
-          dignissimos similique optio.
+          Your gateway to authentic rural experiences. We connect travelers
+          with hidden countryside gems, local homestays, scenic tours, and
+          cultural adventures across rural destinations.
         </p>
         <div className="flex justify-start gap-10 md:w-[75%] my-6">
           <a

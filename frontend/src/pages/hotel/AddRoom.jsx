@@ -93,7 +93,7 @@ export const AddRoom = () => {
               type="number"
               placeholder=""
               required
-              onChange={(e) => setPrice(e.target.value)}
+              onChange={(e) => setPrice(Number(e.target.value))}
             />
           </div>
         </div>

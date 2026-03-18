@@ -61,6 +61,19 @@ const AllReservations = () => {
     fetchAllData();
   }, [user]);
 
+  const handleDeleteHotel = async (id) => {
+    if (window.confirm("Are you sure you want to cancel this hotel booking?")) {
+      try {
+        await axios.delete(`/hotelreservation/${id}`);
+        setHotelReservations(
+          hotelReservations.filter((item) => item._id !== id)
+        );
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  };
+
   // Action columns for generic deletions
   const handleDeleteVehicle = async (id) => {
     if (window.confirm("Are you sure you want to cancel this booking?")) {
@@ -126,6 +139,7 @@ const AllReservations = () => {
                 <th className="px-6 py-3">Check-out Date</th>
                 <th className="px-6 py-3">Total Days</th>
                 <th className="px-6 py-3">Total Price</th>
+                <th className="px-6 py-3">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -148,11 +162,19 @@ const AllReservations = () => {
                     <td className="px-6 py-4 text-green-600 font-bold">
                       Rs. {item.totalPrice}
                     </td>
+                    <td className="px-6 py-4">
+                      <button
+                        onClick={() => handleDeleteHotel(item._id)}
+                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-4 rounded"
+                      >
+                        Cancel
+                      </button>
+                    </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="5" className="px-6 py-4 text-center">
+                  <td colSpan="6" className="px-6 py-4 text-center">
                     No hotel bookings found.
                   </td>
                 </tr>

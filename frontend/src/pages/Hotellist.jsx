@@ -9,8 +9,8 @@ import moment from "moment";
 const Hotellist = ({ columns }) => {
 
   const location = useLocation();
-  const path = location.pathname.split("/")[1];
-  const { data } = useFetch(`${path}`);
+  // We use hotels/mine so the Hotel Manager only sees their own hotels
+  const { data } = useFetch(`hotels/mine`);
 
   function generatePDF(tickets) {
     const doc = new jspdf();

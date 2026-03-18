@@ -49,7 +49,7 @@ const userMiddleware = async (req, res, next) => {
     if (!token) {
       return res.status(401).json({ message: "Invalid Token" });
     }
-    const decoded = jwt.verify(token, process.env.JWT);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded.id;
     next();
   } catch (err) {

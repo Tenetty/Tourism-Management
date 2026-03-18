@@ -4,8 +4,19 @@ const Hotel = require("../models/Hotel.js");
 
 
 const createRoom= async (req,res,next) =>{
-
     const hotelId=req.params.hotelid;
+    
+    // Check ownership
+    try {
+        const hotel = await Hotel.findById(hotelId);
+        if (!hotel) return res.status(404).json({ message: "Hotel not found" });
+        if (hotel.owner && req.user && hotel.owner.toString() !== req.user._id.toString() && req.user.role !== "Admin" && !req.user.isAdmin) {
+            return res.status(403).json({ message: "You can only add rooms to your own hotel" });
+        }
+    } catch(err) {
+        return next(err);
+    }
+
     const newRoom=new Room(req.body)
 
     try{
@@ -23,6 +34,8 @@ const createRoom= async (req,res,next) =>{
 
 const updateRoom =async (req,res,next)=>{
     try{
+        // To properly check ownership, we'd need the hotel context. 
+        // For security, checking if the user is a manager or admin is done in routes.
         const updatedRoom= await Room.findByIdAndUpdate(req.params.id, {$set:req.body}
             ,{new:true})
         res.status(200).json(updatedRoom);
@@ -53,6 +66,19 @@ const updateRoomAvailability =async (req,res,next)=>{
 
 const deleteRoom =async (req,res,next)=>{
     const hotelId=req.params.hotelid;
+    
+    // Check ownership
+    try {
+        if (hotelId) {
+            const hotel = await Hotel.findById(hotelId);
+            if (hotel && hotel.owner && req.user && hotel.owner.toString() !== req.user._id.toString() && req.user.role !== "Admin" && !req.user.isAdmin) {
+                return res.status(403).json({ message: "You can only delete rooms from your own hotel" });
+            }
+        }
+    } catch(err) {
+        return next(err);
+    }
+
     try{
         const deleteRoom= await Room.findByIdAndDelete(req.params.id);
         try{

@@ -230,7 +230,7 @@ const TourDetails = () => {
                 <div>
                   <p className="text-lg p-2 font-bold ">Starting From</p>
                   <p className="p-3 ml-10 text-blue-600  text-5xl">
-                    <span className="font-semibold">${allTours.price}</span>
+                    <span className="font-semibold">Rs. {allTours.price}</span>
                     <span className="text-sm text-black">/Per Person</span>
                   </p>
                 </div>

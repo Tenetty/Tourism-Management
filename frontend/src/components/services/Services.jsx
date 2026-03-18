@@ -138,8 +138,8 @@ const Services = () => {
                 What We Offer
               </h2>
               <p className="text-body-color text-base">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Quaerat reprehenderit autem ea ab repellat eum, quasi modi,
+                Explore our wide range of rural tourism services designed to
+                make your countryside adventure seamless and memorable.
               </p>
             </div>
           </div>

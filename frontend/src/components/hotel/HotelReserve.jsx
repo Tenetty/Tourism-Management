@@ -23,27 +23,29 @@ const HotelReserve = ({setOpen,hotelId,checkInDate,checkOutDate,date_difference}
   const {data,loading,error} = useFetch(`/hotels/room/${hotelId}`)
   const [totalPrice, setTotalPrice] = useState(0);
   const [hotelName, setHotelName] = useState("");
+  const [cheapestPrice, setCheapestPrice] = useState(0);
   const userName = user?.name;
   const totalDays = date_difference;
 
-  // Fetch hotel name separately since /hotels/room/:id only returns rooms
+  // Fetch hotel name and cheapestPrice
   useEffect(() => {
-    const fetchHotelName = async () => {
+    const fetchHotelInfo = async () => {
       try {
         const res = await axios.get(`/hotels/find/${hotelId}`);
         setHotelName(res.data.name || "Unknown Hotel");
+        setCheapestPrice(res.data.cheapestPrice || 0);
       } catch (err) {
-        console.error("Failed to fetch hotel name:", err);
+        console.error("Failed to fetch hotel info:", err);
       }
     };
-    fetchHotelName();
+    fetchHotelInfo();
   }, [hotelId]);
 
   // Filter out null entries (rooms that may have been deleted)
   const rooms = (data || []).filter(item => item !== null);
 
   useEffect(() => {
-    if (rooms.length > 0) {
+    if (selectedRooms.length > 0 && rooms.length > 0) {
       let price = 0;
       rooms.forEach((item) => {
         item.roomNumbers.forEach((roomNumber) => {
@@ -53,8 +55,11 @@ const HotelReserve = ({setOpen,hotelId,checkInDate,checkOutDate,date_difference}
         });
       });
       setTotalPrice(price * date_difference);
+    } else {
+      // Fallback to cheapestPrice when no individual rooms are selected
+      setTotalPrice(cheapestPrice * date_difference);
     }
-  }, [selectedRooms, data, date_difference]);
+  }, [selectedRooms, data, date_difference, cheapestPrice]);
 
   if (!user) return null; // Avoid rendering if redirecting
 
@@ -99,7 +104,9 @@ const HotelReserve = ({setOpen,hotelId,checkInDate,checkOutDate,date_difference}
   function sendData() {
 
     const newReservation = {
+      hotelId,
       hotelName,
+      roomType: selectedRooms.length > 0 ? "Room Selection" : "General Booking",
       checkInDate,
       checkOutDate,
       userName,

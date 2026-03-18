@@ -29,7 +29,7 @@ const SearchCard = (item) => {
                 key={item.id}
               >
                 <img
-                  src={item.HotelImg?.startsWith("http") ? item.HotelImg : `hotels/images/${item.HotelImg}`}
+                  src={item.HotelImg?.startsWith("http") ? item.HotelImg : `http://localhost:5000/api/hotels/images/${item.HotelImg}`}
                   alt=""
                   className="w-full object-cover h-64"
                 />

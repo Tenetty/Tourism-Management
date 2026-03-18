@@ -7,19 +7,19 @@ const {
 
 const router =express.Router();
 
+const { requireHotelManager } = require("../middleware/authMiddleware");
+
 // must be change after user auth done
 
 //Create
-router.post("/:hotelid",createRoom)
+router.post("/:hotelid", requireHotelManager, createRoom)
 
 //update
-
-router.put("/:id",updateRoom)
-router.put("/availability/:id",updateRoomAvailability)
+router.put("/:id", requireHotelManager, updateRoom)
+router.put("/availability/:id", updateRoomAvailability)
 
 //Delete
- 
-router.delete("/:id/:hotelid",deleteRoom)
+router.delete("/:id/:hotelid", requireHotelManager, deleteRoom)
 
 //get
 router.get("/:id", getRoom)

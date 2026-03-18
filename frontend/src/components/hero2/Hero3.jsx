@@ -113,18 +113,18 @@ const Hero3 = () => {
                   isVisible ? "opacity-100" : "opacity-0"
                 }`}
               >
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse
-                nulla enim aperiam culpa cupiditate quas animi ducimus
-                blanditiis! Dolorum, perspiciatis.
+                Wander through terraced rice paddies, sip freshly brewed
+                local tea at a hillside estate, and share stories with
+                welcoming village communities along the way.
               </p>
               <p
                 className={`text-body-color mb-12 text-base transition-opacity duration-700 ${
                   isVisible ? "opacity-100" : "opacity-0"
                 }`}
               >
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse
-                nulla enim aperiam culpa cupiditate quas animi ducimus
-                blanditiis! Dolorum, perspiciatis.
+                Our curated rural tours support local livelihoods and
+                sustainable tourism, so every trip you take gives back to
+                the communities that make it unforgettable.
               </p>
             </div>
           </div>

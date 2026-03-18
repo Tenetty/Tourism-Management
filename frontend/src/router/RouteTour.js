@@ -59,6 +59,7 @@ import VehicleView from "../pages/vehicle/VehicleView";
 
 import RestaurentForm from "../pages/Restaturant/RestaurantForm";
 import HadminView from "../pages/hotel/HadminView";
+import PendingHotels from "../pages/hotel/PendingHotels";
 import HotelReserve from "../components/hotel/HotelReserve";
 import Hotellist from "../pages/Hotellist";
 import Tourlist from "../pages/Tourlist";
@@ -69,6 +70,7 @@ import ResetPassword from "../pages/ResetPassword";
 import Tourreservations from "../pages/Tourreservations";
 import MyTourReservations from "../pages/MyTourReservations";
 import MyHotelReservations from "../pages/hotel/MyHotelReservations";
+import HotelManagerBookings from "../pages/hotel/HotelManagerBookings";
 import AllReservations from "../pages/AllReservations";
 import Vehiclereservation from "../pages/Vehiclereservation";
 import MyVehicleReservations from "../pages/vehicle/MyVehicleReservations";
@@ -277,6 +279,7 @@ const RouteTour = () => {
       {/* chamith */}
       <Route path="/hotelhome" element={<HotelHome />} />
       <Route path="/hotels/new" element={<AddHotel />} />
+      <Route path="/hotels/bookings" element={<HotelManagerBookings />} />
       <Route path="/rooms/new/:id" element={<AddRoom />} />
       <Route path="/hotels/update/:id" element={<UpdateHotel />} />
       <Route path="/hotel/:id" element={<HotelView />} />
@@ -284,6 +287,7 @@ const RouteTour = () => {
       <Route path="/hoteladmin" element={<HadminView />} />
       <Route path="/hotelreserve/:id" element={<HotelReserve />} />
       <Route path="/hotelbooking" element={<HotelBook />} />
+      <Route path="/pending-hotels" element={<ProtectedRoute><PendingHotels /></ProtectedRoute>} />
 
       {/* Navindi */}
       <Route path="/addrestaurants" element={<RestaurentForm />} />

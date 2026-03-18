@@ -3,26 +3,26 @@ import axios from "axios";
 import { AuthContext } from "../../context/authContext";
 import Swal from "sweetalert2";
 
-const MyHotelReservations = () => {
+const HotelManagerBookings = () => {
   const { user } = useContext(AuthContext);
   const [reservations, setReservations] = useState([]);
 
   useEffect(() => {
-    const fetchReservations = async () => {
+    const fetchOwnerReservations = async () => {
       try {
-        const res = await axios.get("/hotelreservation/user");
+        const res = await axios.get("/hotelreservation/mine");
         setReservations(res.data);
       } catch (err) {
-        console.log("Error fetching hotel reservations", err);
+        console.log("Error fetching hotel owner reservations", err);
       }
     };
-    if (user) {
-        fetchReservations();
+    if (user && user.role === "Hotel Manager") {
+        fetchOwnerReservations();
     }
   }, [user]);
 
   const handleCancel = async (id) => {
-    if (window.confirm("Are you sure you want to cancel this hotel booking?")) {
+    if (window.confirm("Are you sure you want to cancel this booking?")) {
       try {
         await axios.delete(`/hotelreservation/${id}`);
         setReservations(reservations.filter((item) => item._id !== id));
@@ -46,13 +46,14 @@ const MyHotelReservations = () => {
   return (
     <div className="p-8">
       <div className="flex justify-between items-center mb-8">
-        <div className="text-3xl font-bold">My Hotel Bookings</div>
+        <div className="text-3xl font-bold">Reservations for My Hotels</div>
       </div>
       <div className="overflow-x-auto shadow-md rounded-lg">
         <table className="w-full text-sm text-left text-gray-500">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
               <th scope="col" className="px-6 py-3">Hotel Name</th>
+              <th scope="col" className="px-6 py-3">Guest Name</th>
               <th scope="col" className="px-6 py-3">Check-in Date</th>
               <th scope="col" className="px-6 py-3">Check-out Date</th>
               <th scope="col" className="px-6 py-3">Total Days</th>
@@ -66,6 +67,9 @@ const MyHotelReservations = () => {
                 <tr className="bg-white border-b hover:bg-gray-50" key={item._id}>
                   <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                     {item.hotelName}
+                  </td>
+                  <td className="px-6 py-4">
+                    {item.userName || "N/A"}
                   </td>
                   <td className="px-6 py-4">
                     {new Date(item.checkInDate).toLocaleDateString()}
@@ -87,8 +91,8 @@ const MyHotelReservations = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="6" className="px-6 py-4 text-center">
-                  No hotel bookings found.
+                <td colSpan="7" className="px-6 py-4 text-center">
+                  No hotel bookings found for your hotels.
                 </td>
               </tr>
             )}
@@ -99,4 +103,4 @@ const MyHotelReservations = () => {
   );
 };
 
-export default MyHotelReservations;
+export default HotelManagerBookings;

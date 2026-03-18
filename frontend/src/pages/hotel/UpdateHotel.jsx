@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -13,30 +13,39 @@ const location=useLocation();
     
     const {data, loading,error }=useFetch(`/hotels/find/${id}`)
 
-  const [name, setHotelName] = React.useState(data.name);
-  const [title, setTitle] = React.useState(data.title);
-  const [type, setHotelType] = React.useState(data.type);
-  const [city, setCity] = React.useState(data.city);
-  const [province, setProvince] = React.useState(data.province);
-  const [zip, setZip] = React.useState(data.zip);
-  const [address, setAddress] = React.useState(data.address);
-  const [distance, setDistance] = React.useState(data.distance);
-  const [description, setDescription] = React.useState(data.description);
-  const [contactName, setContactName] = React.useState(data.contactName);
-  const [contactNo, setContactNumber] = React.useState(data.contactNumber);
- // const [noOfRoomTypes, setNoOfRoomTypes] = React.useState("");
-  const [cheapestPrice, setprice] = React.useState(data.cheapestPrice);
+  const [name, setHotelName] = useState("");
+  const [title, setTitle] = useState("");
+  const [type, setHotelType] = useState("");
+  const [city, setCity] = useState("");
+  const [province, setProvince] = useState("");
+  const [zip, setZip] = useState("");
+  const [address, setAddress] = useState("");
+  const [distance, setDistance] = useState("");
+  const [description, setDescription] = useState("");
+  const [contactName, setContactName] = useState("");
+  const [contactNo, setContactNumber] = useState("");
+  const [cheapestPrice, setprice] = useState("");
 
-  
-
-  
-
-  
+  // Update state when data loads
+  useEffect(() => {
+    if (data && data.name) {
+      setHotelName(data.name);
+      setTitle(data.title || "");
+      setHotelType(data.type || "");
+      setCity(data.city || "");
+      setProvince(data.province || "");
+      setZip(data.zip || "");
+      setAddress(data.address || "");
+      setDistance(data.distance || "");
+      setDescription(data.description || "");
+      setContactName(data.contactName || "");
+      setContactNumber(data.contactNo || "");
+      setprice(data.cheapestPrice || "");
+    }
+  }, [data]);
 
   function sendData(e) {
     e.preventDefault();
-
-    
 
     const updateHotel = {
         name,
@@ -77,6 +86,8 @@ const location=useLocation();
       });
   }
 
+  if (loading) return <div className="flex justify-center p-8">Loading...</div>;
+
   return (
     <div className="flex justify-center">
       <form
@@ -96,7 +107,7 @@ const location=useLocation();
             <input
               class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               id="hotelName"
-              defaultValue={data.name}
+              value={name}
               type="text"
               placeholder="Enter your Hotel name"
               required
@@ -116,7 +127,7 @@ const location=useLocation();
             <input
               class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               id="hotelName"
-              defaultValue={data.title}
+              value={title}
               type="text"
               placeholder="Enter title for your Hotel"
               required
@@ -135,7 +146,7 @@ const location=useLocation();
             </label>
             <select
               id="hotelType"
-              defaultValue={data.type}
+              value={type}
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               onChange={(e) =>setHotelType(e.target.value)}
             >
@@ -159,7 +170,7 @@ const location=useLocation();
             <input
               class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               id="city"
-              defaultValue={data.city}
+              value={city}
               type="text"
               onChange={(e) => setCity(e.target.value)}
             />
@@ -175,7 +186,7 @@ const location=useLocation();
               <select
                 class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="province"
-                defaultValue={data.province}
+                value={province}
                 onChange={(e) => setProvince(e.target.value)}
               >
                 <option>SOUTHERN PROVINCE</option>
@@ -209,7 +220,7 @@ const location=useLocation();
             <input
               class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               id="zip"
-              defaultValue={data.zip}
+              value={zip}
               type="text"
               
               onChange={(e) => setZip(e.target.value)}
@@ -228,7 +239,7 @@ const location=useLocation();
             <input
               class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               id="address"
-              defaultValue={data.address}
+              value={address}
               type="text"
               onChange={(e) => setAddress(e.target.value)}
             />
@@ -246,7 +257,7 @@ const location=useLocation();
             <input
               class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               id="distance"
-              defaultValue={data.distance}
+              value={distance}
               type="text"
               onChange={(e) => setDistance(e.target.value)}
             />
@@ -264,7 +275,7 @@ const location=useLocation();
             <input
               class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               id="contactName"
-              defaultValue={data.contactName}
+              value={contactName}
               type="text"
               onChange={(e) => setContactName(e.target.value)}
             />
@@ -282,7 +293,7 @@ const location=useLocation();
             <input
               class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               id="contactNumber"
-              defaultValue={data.contactNo}
+              value={contactNo}
               type="tel"
               onChange={(e) => setContactNumber(e.target.value)}
             />
@@ -301,7 +312,7 @@ const location=useLocation();
             <textarea
               class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               id="desc"
-              defaultValue={data.description}
+              value={description}
               type="String"
               onChange={(e) => setDescription(e.target.value)}
             />
@@ -319,29 +330,12 @@ const location=useLocation();
             <input
               class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               id="price"
-              defaultValue={data.cheapestPrice}
+              value={cheapestPrice}
               type="Number"
               onChange={(e) => setprice(e.target.value)}
             />
           </div>
         </div>
-
-        {/* <div class="flex flex-wrap -mx-3 mb-6">
-          <div class="w-full px-3">
-            <label
-              class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              for="grid-first-name"
-            >
-              Rating
-            </label>
-            <input
-              class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-              id="rating"
-              type="Number"
-              onChange={(e) => setRaiting(e.target.value)}
-            />
-          </div>
-        </div> */}
 
     
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mb-8">
