@@ -99,6 +99,18 @@ const RouteTour = () => {
     return children;
   };
 
+  const AdminRoute = ({ children }) => {
+    const { user } = useContext(AuthContext);
+
+    if (!user) {
+      return <Navigate to="/login" />;
+    }
+    if (user.role !== "Admin" && !user.isAdmin) {
+      return <Navigate to="/" />;
+    }
+    return children;
+  };
+
   return (
     <Routes>
       <Route path="/" element={<Home />} />
@@ -108,9 +120,9 @@ const RouteTour = () => {
       <Route
         path="/admin"
         element={
-          <ProtectedRoute>
+          <AdminRoute>
             <Admin />
-          </ProtectedRoute>
+          </AdminRoute>
         }
       />
       <Route path="/register" element={<Register />} />
@@ -249,7 +261,6 @@ const RouteTour = () => {
       <Route path="/my-activities" element={<MyActivities />} />
       <Route path="/my-reservations" element={<ReservationPage />} />
 
-      {/*sehan*/}
 
       <Route path="/train/book/:id" element={<TrainBook />} />
       <Route path="/admintrain/add" element={<AddNewTrain />} />
@@ -264,7 +275,6 @@ const RouteTour = () => {
       <Route path="/train/MyTickets" element={<MyTickets />} />
       <Route path="/train/MyTickets/:id" element={<MyOneTicket />} />
 
-      {/* navindi */}
       <Route path="/addrestaurant" element={<RestaurentForm />} />
 
       <Route path="/train/book/:id" element={<TrainBook />} />
@@ -276,7 +286,6 @@ const RouteTour = () => {
         element={<AddPassengerDetails />}
       />
 
-      {/* chamith */}
       <Route path="/hotelhome" element={<HotelHome />} />
       <Route path="/hotels/new" element={<AddHotel />} />
       <Route path="/hotels/bookings" element={<HotelManagerBookings />} />
@@ -287,7 +296,7 @@ const RouteTour = () => {
       <Route path="/hoteladmin" element={<HadminView />} />
       <Route path="/hotelreserve/:id" element={<HotelReserve />} />
       <Route path="/hotelbooking" element={<HotelBook />} />
-      <Route path="/pending-hotels" element={<ProtectedRoute><PendingHotels /></ProtectedRoute>} />
+      <Route path="/pending-hotels" element={<AdminRoute><PendingHotels /></AdminRoute>} />
 
       {/* Navindi */}
       <Route path="/addrestaurants" element={<RestaurentForm />} />

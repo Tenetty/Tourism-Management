@@ -2,7 +2,7 @@ import axios from "axios";
 import { createContext, useEffect, useReducer } from "react";
 
 const INITIAL_STATE = {
-  user: JSON.parse(localStorage.getItem("user")) || null,
+  user: JSON.parse(sessionStorage.getItem("user")) || null,
   loading: false,
   error: null,
 };
@@ -44,11 +44,12 @@ export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
 
   useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(state.user));
+    sessionStorage.setItem("user", JSON.stringify(state.user));
   }, [state.user]);
 
   const logout = () => {
-    localStorage.removeItem("user"); // remove the user from localStorage
+    sessionStorage.removeItem("user"); // remove the user from sessionStorage
+    sessionStorage.removeItem("access_token"); // remove the JWT token
     axios.get("/api/logout").then(() => {
       // make a request to your backend to clear cookies and session
       dispatch({ type: "LOGOUT" }); // update the state to clear the user

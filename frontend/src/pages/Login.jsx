@@ -36,6 +36,10 @@ const Login = () => {
     try {
       setLoading2(true);
       const res = await axios.post("auth/login", credentials);
+      // Store the JWT token so axios interceptor can attach it to future requests
+      if (res.data.token) {
+        sessionStorage.setItem("access_token", res.data.token);
+      }
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
       setLoading2(false);
       if (res.data.isAdmin === true) {

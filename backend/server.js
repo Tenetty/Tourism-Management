@@ -17,7 +17,7 @@ connectDB();
 app.use(express.json({ limit: "50mb", extended: true }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
-app.use(cors());
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 //to accept body data
 
@@ -134,7 +134,7 @@ const server = app.listen(port, () =>
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
-    orgin: "http://localhost:3000",
+    origin: "http://localhost:3000",
   },
 });
 

@@ -57,7 +57,8 @@ const createHotel = async (req, res) => {
 
       console.log("Files uploaded:", { hotelImg, HotelImgs, certificates });
 
-      // Check if all required fields are present in the request body
+      try {
+        // Check if all required fields are present in the request body
       const requiredFields = [
         "name",
         "title",
@@ -98,6 +99,10 @@ const createHotel = async (req, res) => {
 
       // Send a response with the new hotel object
       res.status(200).json(newHotel);
+      } catch (innerErr) {
+        console.log("Inner catch block error:", innerErr);
+        res.status(500).json({ message: innerErr.message });
+      }
     });
   } catch (err) {
     console.log("Catch block error:", err);
@@ -247,7 +252,9 @@ const getAllHotel = async (req, res, next) => {
 // Get hotels owned by the logged-in hotel manager (includes unapproved)
 const getMyHotels = async (req, res, next) => {
   try {
-    const hotels = await Hotel.find({ owner: req.user._id });
+    console.log("Fetching hotels for owner ID:", req.user._id);
+    const hotels = await Hotel.find({ owner: req.user._id }).populate("owner", "name email");
+    console.log("Found:", hotels.length);
     res.status(200).json(hotels);
   } catch (err) {
     res.status(500).json(err);
@@ -260,7 +267,7 @@ const countByCity = async (req, res, next) => {
   try {
     const list = await Promise.all(
       cities.map((city) => {
-        return Hotel.countDocuments({ city: city });
+        return Hotel.countDocuments({ city: city, isApproved: true });
       })
     );
 
@@ -273,11 +280,11 @@ const countByCity = async (req, res, next) => {
 //count by type
 const countByType = async (req, res, next) => {
   try {
-    const hotelCount = await Hotel.countDocuments({ type: "Hotel" });
-    const apratmentCount = await Hotel.countDocuments({ type: "apartment" });
-    const resortCount = await Hotel.countDocuments({ type: "resort" });
-    const villaCount = await Hotel.countDocuments({ type: "villa" });
-    const cabinCount = await Hotel.countDocuments({ type: "cabin" });
+    const hotelCount = await Hotel.countDocuments({ type: "Hotel", isApproved: true });
+    const apratmentCount = await Hotel.countDocuments({ type: "apartment", isApproved: true });
+    const resortCount = await Hotel.countDocuments({ type: "resort", isApproved: true });
+    const villaCount = await Hotel.countDocuments({ type: "villa", isApproved: true });
+    const cabinCount = await Hotel.countDocuments({ type: "cabin", isApproved: true });
 
     res.status(200).json([
       { type: "hotel", count: hotelCount },
@@ -297,7 +304,7 @@ const getHotelbyCity = async (req, res) => {
   const city = req.params.city;
   console.log(city);
   try {
-    const hotels = await Hotel.find({ city: city });
+    const hotels = await Hotel.find({ city: city, isApproved: true });
     if (!hotels) {
       res.status(404).send("No hotels found");
     }
@@ -325,7 +332,7 @@ const getHotelRooms = async (req, res, next) => {
 // Admin: get all hotels (including unapproved)
 const getAllHotelsAdmin = async (req, res, next) => {
   try {
-    const hotels = await Hotel.find();
+    const hotels = await Hotel.find().populate("owner", "name email");
     res.status(200).json(hotels);
   } catch (err) {
     res.status(500).json(err);

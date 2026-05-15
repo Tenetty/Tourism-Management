@@ -1,25 +1,31 @@
-import React from "react";
+import React, { useContext } from "react";
 import Datatable from "../components/datatable/Datatable";
 import useFetch from "../hooks/useFetch";
 import { Link, useLocation } from "react-router-dom";
 import jspdf from "jspdf";
 import "jspdf-autotable";
 import moment from "moment";
+import { AuthContext } from "../context/authContext";
 
 const Hotellist = ({ columns }) => {
-
+  const { user } = useContext(AuthContext);
   const location = useLocation();
-  // We use hotels/mine so the Hotel Manager only sees their own hotels
-  const { data } = useFetch(`hotels/mine`);
+  // We use /hotels/mine so the Hotel Manager only sees their own hotels
+  const fetchPath = user && (user.role === "Admin" || user.isAdmin) ? "/hotels/all" : "/hotels/mine";
+  const { data } = useFetch(fetchPath);
+  console.log(data);
 
   function generatePDF(tickets) {
     const doc = new jspdf();
     const tableColumn = [
+      "ID",
       "Hotel Name",
       "Hotel Type",
       "City",
       "Contact No",
+      "Contact Name",
       "Cheapest price",
+      "Added By",
     ];
     const tableRows = [];
 
@@ -35,6 +41,7 @@ const Hotellist = ({ columns }) => {
           ticket.contactNo,
           ticket.contactName,
           ticket.cheapestPrice,
+          ticket.owner ? ticket.owner.name : "Unknown",
         ];
         tableRows.push(ticketData);
       });
@@ -65,15 +72,15 @@ const Hotellist = ({ columns }) => {
       </div>
       <div className="lg:px-32 px-8 flex md:justify-end">
         <Link
-        onClick={() => {
-          generatePDF(data);
-        }}
-         className="bg-blue-500 hover:bg-blue-700 text-center text-white font-bold py-2 px-4 rounded cursor-pointer lg:mt-0 mt-3">
+          onClick={() => {
+            generatePDF(data);
+          }}
+          className="bg-blue-500 hover:bg-blue-700 text-center text-white font-bold py-2 px-4 rounded cursor-pointer lg:mt-0 mt-3">
           Generate Report
         </Link>
       </div>
       <div>
-        <Datatable columns={columns} />
+        <Datatable columns={columns} fetchPath={fetchPath} />
       </div>
     </>
   );

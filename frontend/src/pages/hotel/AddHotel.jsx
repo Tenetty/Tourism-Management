@@ -83,9 +83,7 @@ export const AddHotel = () => {
 
     axios
       .post("/hotels", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+        withCredentials: true
       })
       .then(() => {
         Swal.fire({
@@ -406,7 +404,7 @@ export const AddHotel = () => {
               class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
               for="grid-first-name"
             >
-              Upload hotel images (upload 5 iamges)
+              Upload hotel images (upload 5 images)
             </label>
             <input
               type="file"

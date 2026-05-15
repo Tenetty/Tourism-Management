@@ -2,9 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
-
+import axios from "axios";
 import { AuthContextProvider } from "./context/authContext";
 
+// Attach JWT token as Authorization header on every request
+axios.interceptors.request.use((config) => {
+  const token = sessionStorage.getItem("access_token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <>

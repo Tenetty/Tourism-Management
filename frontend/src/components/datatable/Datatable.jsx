@@ -7,7 +7,7 @@ import "./datatable.scss";
 import Swal from "sweetalert2";
 import CircularProgress from "@mui/material/CircularProgress";
 
-const Datatable = ({ columns }) => {
+const Datatable = ({ columns, fetchPath }) => {
   const location = useLocation();
   const path = location.pathname.split("/")[1];
 
@@ -18,7 +18,7 @@ const Datatable = ({ columns }) => {
   const [list, setList] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const { data } = useFetch(`${path}`);
+  const { data } = useFetch(fetchPath || `${path}`);
 
   const navigate = useNavigate();
 
@@ -40,10 +40,12 @@ const Datatable = ({ columns }) => {
     if (confirmResult.isConfirmed) {
       try {
         setIsLoading(true);
-        await axios.delete(`${path}/${id}`);
+        // ✅ fixed: use fetchPath base and send credentials
+        await axios.delete(`/hotels/${id}`, { withCredentials: true });
         setIsLoading(false);
       } catch (error) {
         console.log(error);
+        setIsLoading(false);
       }
 
       setList(list.filter((item) => item._id !== id));
@@ -53,20 +55,19 @@ const Datatable = ({ columns }) => {
   const handleview = async (id) => {
     try {
       if (path === "users") {
-        const userdata = await axios.get(`${path}/${id}`);
+        const userdata = await axios.get(`/${path}/${id}`, { withCredentials: true });
         navigate("/userpage", { state: userdata.data });
       }
       if (path === "hotels") {
-        const hoteldata = await axios.get(`${path}/find/${id}`);
+        const hoteldata = await axios.get(`/${path}/find/${id}`, { withCredentials: true });
         navigate("/hoteladmin", { state: hoteldata.data });
       }
       if (path === "vehicle") {
-        const vehicledata = await axios.get(`${path}/${id}`);
+        const vehicledata = await axios.get(`/${path}/${id}`, { withCredentials: true });
         navigate("/vehicle/view/", { state: vehicledata.data });
       }
-      //path tour
       if (path === "tours") {
-        const tourData = await axios.get(`${path}/${id}`);
+        const tourData = await axios.get(`/${path}/${id}`, { withCredentials: true });
         navigate("/tour/view", { state: tourData.data });
       }
     } catch (error) {
@@ -101,7 +102,6 @@ const Datatable = ({ columns }) => {
     },
   ];
 
-  // Use useMemo to filter the list only when the search query changes
   const filteredList = useMemo(() => {
     if (!searchQuery) {
       return list;
@@ -109,9 +109,7 @@ const Datatable = ({ columns }) => {
 
     const searchRegex = new RegExp(searchQuery.trim(), "i");
     return list.filter((item) => {
-      // Combine all searchable fields into a single string to search in
       const searchableString = `${item.name}${item.type} ${item.email} ${item.mobile} ${item.country} ${item.ownerName} ${item.vehicleType}`;
-
       return searchRegex.test(searchableString);
     });
   }, [list, searchQuery]);
@@ -160,4 +158,5 @@ const Datatable = ({ columns }) => {
     </>
   );
 };
+
 export default Datatable;

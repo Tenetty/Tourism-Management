@@ -196,7 +196,7 @@ const Navbar = () => {
                                 active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                                 "block px-4 py-2 text-sm font-semibold text-[#41A4FF]"
                               )}
-                              to="/hotels/list"
+                              to="/hotels"
                             >
                               Hotel Dashboard
                             </Link>
@@ -427,73 +427,73 @@ const Navbar = () => {
                         )}
                       </Menu.Item>
 
-                    {user.role === "Hotel Manager" && (
-                      <Menu.Item>
-                        {({ active }) => (
-                          <>
-                            <Link
-                              className={classNames(
-                                active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                                "block px-4 py-2 text-sm font-semibold text-[#41A4FF]"
-                              )}
-                              to="/hotels/list"
-                            >
-                              Hotel Dashboard
-                            </Link>
-                            <Link
-                              className={classNames(
-                                active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                                "block px-4 py-2 text-sm font-semibold text-[#41A4FF]"
-                              )}
-                              to="/hotels/bookings"
-                            >
-                              Hotel Bookings
-                            </Link>
-                            <Link
-                              className={classNames(
-                                active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                                "block px-4 py-2 text-sm font-semibold text-[#41A4FF]"
-                              )}
-                              to="/hotels/new"
-                            >
-                              Add Hotel
-                            </Link>
-                          </>
-                        )}
-                      </Menu.Item>
-                    )}
+                      {user.role === "Hotel Manager" && (
+                        <Menu.Item>
+                          {({ active }) => (
+                            <>
+                              <Link
+                                className={classNames(
+                                  active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                                  "block px-4 py-2 text-sm font-semibold text-[#41A4FF]"
+                                )}
+                                to="/hotels"
+                              >
+                                Hotel Dashboard
+                              </Link>
+                              <Link
+                                className={classNames(
+                                  active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                                  "block px-4 py-2 text-sm font-semibold text-[#41A4FF]"
+                                )}
+                                to="/hotels/bookings"
+                              >
+                                Hotel Bookings
+                              </Link>
+                              <Link
+                                className={classNames(
+                                  active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                                  "block px-4 py-2 text-sm font-semibold text-[#41A4FF]"
+                                )}
+                                to="/hotels/new"
+                              >
+                                Add Hotel
+                              </Link>
+                            </>
+                          )}
+                        </Menu.Item>
+                      )}
 
-                    {user.role === "Vehicle Owner" && (
-                      <Menu.Item>
-                        {({ active }) => (
-                          <Link
-                            className={classNames(
-                              active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                              "block px-4 py-2 text-sm font-semibold text-[#41A4FF]"
-                            )}
-                            to="/vehicle/add"
-                          >
-                            Add Vehicle
-                          </Link>
-                        )}
-                      </Menu.Item>
-                    )}
+                      {user.role === "Vehicle Owner" && (
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link
+                              className={classNames(
+                                active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                                "block px-4 py-2 text-sm font-semibold text-[#41A4FF]"
+                              )}
+                              to="/vehicle/add"
+                            >
+                              Add Vehicle
+                            </Link>
+                          )}
+                        </Menu.Item>
+                      )}
 
-                    {(user.role === "Admin" || user.isAdmin) && (
-                      <Menu.Item>
-                        {({ active }) => (
-                          <Link
-                            className={classNames(
-                              active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                              "block px-4 py-2 text-sm font-semibold text-[#41A4FF]"
-                            )}
-                            to="/admin"
-                          >
-                            Admin Dashboard
-                          </Link>
-                        )}
-                      </Menu.Item>
-                    )}
+                      {(user.role === "Admin" || user.isAdmin) && (
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link
+                              className={classNames(
+                                active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                                "block px-4 py-2 text-sm font-semibold text-[#41A4FF]"
+                              )}
+                              to="/admin"
+                            >
+                              Admin Dashboard
+                            </Link>
+                          )}
+                        </Menu.Item>
+                      )}
                       <form>
                         <Menu.Item>
                           {({ active }) => (

@@ -206,6 +206,14 @@ export const hotelColumns = [
     headerName: "Cheapest Price",
     width: 150,
   },
+  {
+    field: "addedBy",
+    headerName: "Added by",
+    width: 150,
+    renderCell: (params) => {
+      return <span>{params.row.owner ? params.row.owner.name : "Unknown"}</span>;
+    },
+  },
 ];
 
 export const tourColumns = [
